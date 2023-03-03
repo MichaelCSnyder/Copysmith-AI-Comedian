@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+    api:
+        build:
+            context: .
+            target: production
+        ports:
+            # right side is port container is listening to, left side is port exposed on host machine
+            - 3000:3000

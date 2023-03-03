@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+    api:
+        build:
+            context: .
+            target: development
+        volumes:
+            - ./:/usr/src/app
+            # use specificy to prevent copying over node_modules folder
+            - /usr/src/app/node_modules
+        ports:
+            # right side is port container is listening to, left side is port exposed on host machine
+            - 3000:3000
+        command: npm run devServer
