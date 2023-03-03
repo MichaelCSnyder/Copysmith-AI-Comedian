@@ -1,0 +1,12 @@
+# ignore node_modules sub directory
+node_modules/
+
+# ignore build sub directory
+build/
+
+# ignore .vscode sub directory
+.vscode/
+
+# ignore prettier config file
+..prettierrc
+
