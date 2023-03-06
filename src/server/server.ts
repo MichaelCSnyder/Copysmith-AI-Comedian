@@ -1,6 +1,7 @@
 import { NextFunction, request, Request, response, Response } from 'express';
 import mongoose from 'mongoose';
-const express = require('express');
+import express from 'express';
+import cors from 'cors';
 import { config } from '../config/config';
 import router from './routes/index';
 
@@ -22,6 +23,7 @@ const StartServer = () => {
     /**Global middlewares */
     app.use(express.urlencoded({ extended: true }));
     app.use(express.json());
+    app.use(cors());
 
     /**Routes */
     app.use('/api', router);

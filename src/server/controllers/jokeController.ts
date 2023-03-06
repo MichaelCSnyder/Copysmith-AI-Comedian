@@ -24,19 +24,23 @@ const generateJoke = async (req: Request, res: Response, next: NextFunction) => 
         const { punchline } = req.body;
         const body = {
             model: 'text-davinci-003',
-            prompt: `Tell me a joke whose punchline is: ${punchline}`
+            prompt: `Tell me a joke whose punchline is '${punchline}'`,
+            n: 1,
+            max_tokens: 2048
         };
         const headers = {
             Authorization: `Bearer ${config.api.key}`
         };
 
         const openAIJoke: any = await axios.post('https://api.openai.com/v1/completions', body, { headers });
-        const setup = openAIJoke.data.choices[0].text;
+        const joke = openAIJoke.data.choices[0].text;
 
-        res.locals.joke = { setup, punchline };
+        const [newSetup, newPunchline]: [string, string] = joke.split('\n').filter((s: string) => s !== '');
+
+        res.locals.joke = { setup: newSetup, punchline: newPunchline };
 
         return next();
-    } catch (error) {
+    } catch (error: any) {
         return next({
             message: 'Error attempting to generate AI Joke',
             log: 'Error attempting to generate joke in jokeController.generateJoke: ' + error
