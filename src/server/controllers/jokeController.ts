@@ -43,7 +43,7 @@ const generateJoke = async (req: Request, res: Response, next: NextFunction) => 
     } catch (error: any) {
         return next({
             message: 'Error attempting to generate AI Joke',
-            log: 'Error attempting to generate joke in jokeController.generateJoke: ' + error
+            log: 'Error attempting to generate joke in jokeController.generateJoke: ' + JSON.stringify(error.response.data.error.message)
         });
     }
 };

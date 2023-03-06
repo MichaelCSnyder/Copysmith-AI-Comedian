@@ -1,4 +1,5 @@
 import { NextFunction, request, Request, response, Response } from 'express';
+import path from 'path';
 import mongoose from 'mongoose';
 import express from 'express';
 import cors from 'cors';
@@ -28,8 +29,9 @@ const StartServer = () => {
     /**Routes */
     app.use('/api', router);
 
-    app.get('/', (req: Request, res: Response) => {
-        return res.status(200).send('Haaaaaay!');
+    /**Serve Homepage */
+    app.get('/*', (req, res) => {
+        return res.status(200).sendFile(path.join(__dirname, '../client/public/index.html'));
     });
 
     /**Catch bad paths */

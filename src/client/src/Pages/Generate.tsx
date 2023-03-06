@@ -72,6 +72,7 @@ const Generate = () => {
 
     const inputRef = useRef<HTMLInputElement>(null);
     const [generatedJoke, setGeneratedJoke] = useState<Joke>(initialState);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -81,14 +82,19 @@ const Generate = () => {
         // guard clause
         if (!punchline) return;
 
+        setLoading(true);
         axios
             .post('http://localhost:3000/api/joke', { punchline })
             .then((res) => {
                 const { setup, punchline } = res.data;
 
                 setGeneratedJoke({ setup, punchline });
+                setLoading(false);
             })
-            .catch((error) => console.log(error));
+            .catch((error) => {
+                setLoading(false);
+                console.log(error);
+            });
     };
     return (
         <>
@@ -103,8 +109,14 @@ const Generate = () => {
                     </Form>
                     <OutputTitle>Generated Joke</OutputTitle>
                     <Output>
-                        <Setup>{generatedJoke.setup}</Setup>
-                        <Punchline>{generatedJoke.punchline}</Punchline>
+                        {loading ? (
+                            <p>Loading...</p>
+                        ) : (
+                            <>
+                                <Setup>{generatedJoke.setup}</Setup>
+                                <Punchline>{generatedJoke.punchline}</Punchline>
+                            </>
+                        )}
                     </Output>
                 </Wrapper>
             </Container>

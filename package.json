@@ -7,7 +7,7 @@
         "start": "npm run build && node build/server/server.js",
         "server": "node build/server/server.js",
         "devServer": "ts-node-dev src/server/server.ts",
-        "build": "rm -rf build/ && tsc",
+        "build": "rm -rf build/ && npm run prod && tsc",
         "dev": "cross-env NODE_ENV=development webpack serve --open",
         "prod": "cross-env NODE_ENV=production webpack",
         "test": "echo \"Error: no test specified\" && exit 1"
