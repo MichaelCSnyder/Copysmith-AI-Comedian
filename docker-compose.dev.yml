@@ -13,3 +13,13 @@ services:
             # right side is port container is listening to, left side is port exposed on host machine
             - 3000:3000
         command: npm run devServer
+    client:
+        build:
+            context: .
+            target: development
+        volumes:
+            - ./:/usr/src/app
+            - /usr/src/app/node_modules
+        ports:
+            - 8080:8080
+        command: npm run dev
