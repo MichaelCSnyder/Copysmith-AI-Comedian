@@ -52,8 +52,8 @@ const Archived = () => {
                 <Wrapper>
                     <Title>Old Jokes</Title>
                     <Jokes>
-                        {jokes.map((joke) => (
-                            <Joke>
+                        {jokes.map((joke, index) => (
+                            <Joke key={index}>
                                 <Setup>{joke.setup}</Setup>
                                 <Punchline>{joke.punchline}</Punchline>
                             </Joke>
